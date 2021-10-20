@@ -10,12 +10,34 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>my-spring-data-jpa</module>
+        <module>my-spring-oauth2</module>
     </modules>
 
+    <properties>
+        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+        <mysql-connector-java.version>8.0.22</mysql-connector-java.version>
+        <druid.version>1.1.9</druid.version>
+    </properties>
+
     <dependencyManagement>
-
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
-
 
     <build>
         <plugins>

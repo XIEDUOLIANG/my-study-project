@@ -11,6 +11,7 @@
     <modules>
         <module>my-spring-data-jpa</module>
         <module>my-spring-oauth2</module>
+        <module>my-web-common</module>
     </modules>
 
     <properties>
@@ -19,6 +20,26 @@
         <mysql-connector-java.version>8.0.22</mysql-connector-java.version>
         <druid.version>1.1.9</druid.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -36,6 +57,13 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>2.3.2.RELEASE</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

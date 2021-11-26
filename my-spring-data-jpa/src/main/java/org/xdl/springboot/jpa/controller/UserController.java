@@ -96,4 +96,12 @@ public class UserController {
         log.info("getUserByCondition：{}",systemUserPage.getContent());
     }
     //endregion
+
+    @RequestMapping(value = "/update",method = RequestMethod.GET)
+    public void update() {
+        SystemUser systemUser = new SystemUser();
+        systemUser.setUserId(3L);
+        systemUser.setAge(33);
+        userRepository.save(systemUser);
+    }
 }

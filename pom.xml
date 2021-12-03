@@ -12,6 +12,7 @@
         <module>my-spring-data-jpa</module>
         <module>my-spring-oauth2</module>
         <module>my-web-common</module>
+        <module>my-rabbitmq</module>
     </modules>
 
     <properties>

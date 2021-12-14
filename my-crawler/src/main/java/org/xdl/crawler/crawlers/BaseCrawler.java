@@ -29,6 +29,9 @@ public abstract class BaseCrawler {
         if (WebSiteConstants.SSE.equals(webSite)) {
             return new SSECrawler();
         }
+        if (WebSiteConstants.SZSE.equals(webSite)) {
+            return new SZSECrawler();
+        }
         return null;
     }
 
@@ -87,15 +90,16 @@ public abstract class BaseCrawler {
     }
 
     public static void main(String[] args) {
-        BaseCrawler crawler = BaseCrawler.getInstance(WebSiteConstants.SSE);
+        BaseCrawler crawler = BaseCrawler.getInstance(WebSiteConstants.SZSE);
         if (crawler == null)
             return;
         List<BaseItem> baseItems = new ArrayList<>();
-        crawler.getList("2021-12-03",baseItems);
+        String date = "2021-12-13";
+        crawler.getList(date,baseItems);
+
+        log.info(date + "当日更新总数据json：{}",JSON.toJSONString(baseItems));
         for (BaseItem baseItem:baseItems) {
-            if (baseItem instanceof SSEKCProjectDynamicItem) {
-                log.info("2021-12-03当日更新数据：{}", JSON.toJSONString(baseItem));
-            }
+            log.info(date + "当日更新数据：{}", JSON.toJSONString(baseItem));
         }
     }
 }

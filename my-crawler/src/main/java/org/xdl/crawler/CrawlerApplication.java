@@ -18,15 +18,5 @@ public class CrawlerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CrawlerApplication.class,args);
-        BaseCrawler crawler = BaseCrawler.getInstance(WebSiteConstants.SSE);
-        if (crawler == null)
-            return;
-        List<BaseItem> baseItems = new ArrayList<>();
-        crawler.getList("2021-12-03",baseItems);
-        for (BaseItem baseItem:baseItems) {
-            if (baseItem instanceof SSEKCProjectDynamicItem) {
-                log.info("2021-12-03当日更新数据：{}",JSON.toJSONString(baseItem));
-            }
-        }
     }
 }

@@ -1,8 +1,11 @@
 package org.xdl.crawler.crawlers;
 
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.client.RestTemplate;
 import org.xdl.crawler.Constants.WebSiteConstants;
 import org.xdl.crawler.data.BaseItem;
+import org.xdl.crawler.data.SSEKCProjectDynamicItem;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -13,6 +16,7 @@ import java.util.List;
  * @author XieDuoLiang
  * @date 2021/12/14 下午1:15
  */
+@Slf4j
 public abstract class BaseCrawler {
 
     private String url;
@@ -44,7 +48,7 @@ public abstract class BaseCrawler {
                 total.add(item);
             }
         }
-        if (items.get(items.size() - 1).getUpdateTime().compareTo(date) >= 0) {
+        if (items.get(items.size() - 1).getUpdateTime().compareTo(date) >= 0) { //如当前页最后一条数据 更新日期大于等于指定日期 则继续翻页
             setPage(getPage() + 1);
             getList(date,total);
         }
@@ -80,5 +84,18 @@ public abstract class BaseCrawler {
         if (pageSize == null || pageSize > 20)
             this.pageSize = 20;
         this.pageSize = pageSize;
+    }
+
+    public static void main(String[] args) {
+        BaseCrawler crawler = BaseCrawler.getInstance(WebSiteConstants.SSE);
+        if (crawler == null)
+            return;
+        List<BaseItem> baseItems = new ArrayList<>();
+        crawler.getList("2021-12-03",baseItems);
+        for (BaseItem baseItem:baseItems) {
+            if (baseItem instanceof SSEKCProjectDynamicItem) {
+                log.info("2021-12-03当日更新数据：{}", JSON.toJSONString(baseItem));
+            }
+        }
     }
 }

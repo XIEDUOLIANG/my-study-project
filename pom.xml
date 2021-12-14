@@ -13,6 +13,7 @@
         <module>my-spring-oauth2</module>
         <module>my-web-common</module>
         <module>my-rabbitmq</module>
+        <module>my-crawler</module>
     </modules>
 
     <properties>

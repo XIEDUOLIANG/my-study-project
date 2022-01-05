@@ -14,6 +14,7 @@
         <module>my-web-common</module>
         <module>my-rabbitmq</module>
         <module>my-crawler</module>
+        <module>data-sync</module>
     </modules>
 
     <properties>

@@ -7,6 +7,7 @@ import org.xdl.web.common.utils.RedisUtil;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -65,10 +66,16 @@ public class RedisTest extends BaseTest{
     @Test
     public void testRedisLock() {
         ExecutorService executorService = Executors.newFixedThreadPool(1000);
-        List<Boolean> getLockResults = new ArrayList<>();
+        List<Boolean> getLockResults = new CopyOnWriteArrayList<>();
         for (int i = 0; i < 1000; i++) {
             executorService.submit(() -> {
+                try {
+                    Thread.sleep(500L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 boolean lock = redisUtil.getLock();
+                System.out.println(Thread.currentThread().getName());
                 getLockResults.add(lock);
             });
         }
@@ -87,7 +94,7 @@ public class RedisTest extends BaseTest{
     @Test
     public void testAnotherLock() {
         ExecutorService executorService = Executors.newFixedThreadPool(1000);
-        List<Boolean> getLockResults = new ArrayList<>();
+        List<Boolean> getLockResults = new CopyOnWriteArrayList<>();
         for (int i = 0; i < 1000; i++) {
             executorService.submit(() -> {
                 String value = redisUtil.get("lock");

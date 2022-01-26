@@ -7,4 +7,6 @@ package org.xdl.crawler.Constants;
 public class WebSiteConstants {
 
     public static final String SSE = "100";
+
+    public static final String SZSE = "101";
 }

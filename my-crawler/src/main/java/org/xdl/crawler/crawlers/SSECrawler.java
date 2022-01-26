@@ -27,7 +27,7 @@ public class SSECrawler extends BaseCrawler{
 
     public SSECrawler() {
         this.page = 1;
-        this.pageSize = 5;
+        this.pageSize = 50;
         this.setUrl("https://query.sse.com.cn/statusAction.do?");
     }
 
@@ -84,9 +84,4 @@ public class SSECrawler extends BaseCrawler{
         return null;
     }
     //endregion
-
-    public static void main(String[] args) throws ParseException {
-        String time = "2021-12-10";
-        System.out.println(time.compareTo("2021-12-08"));
-    }
 }

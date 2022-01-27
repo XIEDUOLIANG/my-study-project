@@ -3,6 +3,8 @@ package org.xdl.web.common.test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
+import org.xdl.web.common.entity.Employee;
+import org.xdl.web.common.mapper.EmployeeMapper;
 import org.xdl.web.common.pojo.User;
 import org.xdl.web.common.utils.RedisUtil;
 
@@ -23,7 +25,12 @@ import java.util.stream.Collectors;
 public class RedisTest extends BaseTest{
 
     @Resource
+    private EmployeeMapper employeeMapper;
+
+    @Resource
     private RedisUtil redisUtil;
+
+    //region redis test
 
     @Test
     public void test() {
@@ -139,4 +146,22 @@ public class RedisTest extends BaseTest{
 
         redisUtil.hashSave(user.getCode(),"name","谢铎亮123");
     }
+
+    //endregion redis test
+
+    //region mybatis-plus
+
+    @Test
+    public void mybatisTest1() {
+        Employee employee = new Employee();
+        employee.setName("谢铎亮");
+        employee.setSalary(null);
+        employee.setDepartmentId(123L);
+        employee.setMoney(null);
+        employee.setMoney2(null);
+
+        employeeMapper.insert(employee);
+    }
+
+    //endregion mybatis-plus
 }

@@ -10,6 +10,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -42,6 +43,11 @@ public class RedisConfig {
     @Bean
     public ValueOperations<String,Object> valueOperations(RedisTemplate<String,Object> redisTemplate) {
         return redisTemplate.opsForValue();
+    }
+
+    @Bean
+    public HashOperations<String, Object, Object> hashValueOperations(RedisTemplate<String,Object> redisTemplate) {
+        return redisTemplate.opsForHash();
     }
 
     @Bean

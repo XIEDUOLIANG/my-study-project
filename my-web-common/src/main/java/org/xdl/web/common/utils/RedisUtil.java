@@ -3,15 +3,18 @@ package org.xdl.web.common.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
+import org.xdl.web.common.pojo.User;
 import redis.clients.jedis.commands.JedisCommands;
 import redis.clients.jedis.params.SetParams;
 
 import javax.annotation.Resource;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -28,6 +31,9 @@ public class RedisUtil {
 
     @Resource
     private ValueOperations<String,Object> valueOperations;
+
+    @Resource
+    private HashOperations<String, Object, Object> hashOperations;
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
@@ -74,6 +80,19 @@ public class RedisUtil {
             return jedisCommands.set(LOCK_KEY, "1", setParams);
         });
         return "OK".equals(result);
+    }
+    //endregion
+
+    //region hash
+    public void hashSave(String key, String hashKey, Object object) {
+        hashOperations.put(key,hashKey,object);
+        hashOperations.getOperations().expire(key,100,TimeUnit.SECONDS);
+    }
+
+    public void hashSaveAll(String key, Object object) {
+        Map map = JSONObject.parseObject(JSON.toJSONString(object), Map.class);
+        hashOperations.putAll(key,map);
+        hashOperations.getOperations().expire(key,100,TimeUnit.SECONDS);
     }
     //endregion
 

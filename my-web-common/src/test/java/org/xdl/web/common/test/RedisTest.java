@@ -1,5 +1,7 @@
 package org.xdl.web.common.test;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.xdl.web.common.pojo.User;
 import org.xdl.web.common.utils.RedisUtil;
@@ -7,6 +9,7 @@ import org.xdl.web.common.utils.RedisUtil;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -116,4 +119,24 @@ public class RedisTest extends BaseTest{
         }
     }
     //endregion
+
+    @Test
+    public void TestRedisHash() {
+        User user = new User();
+        user.setId(123L);
+        user.setCode("001");
+        user.setName("谢铎亮");
+        redisUtil.hashSave("user",user.getCode(),user);
+    }
+
+    @Test
+    public void TestRedisHash1() {
+        User user = new User();
+        user.setId(123L);
+        user.setCode("001");
+        user.setName("谢铎亮");
+        redisUtil.hashSaveAll(user.getCode(),user);
+
+        redisUtil.hashSave(user.getCode(),"name","谢铎亮123");
+    }
 }

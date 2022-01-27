@@ -65,9 +65,9 @@ public class RedisTest extends BaseTest{
 
     @Test
     public void testRedisLock() {
-        ExecutorService executorService = Executors.newFixedThreadPool(1000);
+        ExecutorService executorService = Executors.newFixedThreadPool(2000);
         List<Boolean> getLockResults = new CopyOnWriteArrayList<>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 2000; i++) {
             executorService.submit(() -> {
                 try {
                     Thread.sleep(500L);

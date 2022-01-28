@@ -73,8 +73,8 @@ public class RedisTest extends BaseTest{
         System.out.println(redisUtil.getLock());
     }
 
-    @Test
-    public void testRedisLock() {
+    public long testRedisLock1() {
+        long startTime = System.currentTimeMillis();
         ExecutorService executorService = Executors.newFixedThreadPool(2000);
         List<Boolean> getLockResults = new CopyOnWriteArrayList<>();
         for (int i = 0; i < 2000; i++) {
@@ -85,7 +85,6 @@ public class RedisTest extends BaseTest{
                     e.printStackTrace();
                 }
                 boolean lock = redisUtil.getLock();
-                System.out.println(Thread.currentThread().getName());
                 getLockResults.add(lock);
             });
         }
@@ -97,6 +96,41 @@ public class RedisTest extends BaseTest{
                 break;
             }
         }
+        long endTime = System.currentTimeMillis();
+        System.out.println(String.format("耗时：%sms",endTime - startTime - 500));
+        return endTime - startTime - 500;
+    }
+
+    public long testRedisLock2() {
+        long startTime = System.currentTimeMillis();
+        ExecutorService executorService = Executors.newFixedThreadPool(2000);
+        List<Boolean> getLockResults = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 2000; i++) {
+            executorService.submit(() -> {
+                try {
+                    Thread.sleep(500L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                getLockResults.add(true); //省略redis操作
+            });
+        }
+        executorService.shutdown();
+        while (true) {
+            if (executorService.isTerminated()) {
+                long count = getLockResults.stream().filter(x -> x).count();
+                System.out.println(String.format("获得锁的线程数量：%s，总线程数：%s",count,getLockResults.size()));
+                break;
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println(String.format("耗时：%sms",endTime - startTime - 500));
+        return endTime - startTime - 500;
+    }
+
+    @Test
+    public void testLock3() {
+        System.out.println(String.format("耗时：%sms",testRedisLock1() - testRedisLock2()));
     }
     //endregion
 

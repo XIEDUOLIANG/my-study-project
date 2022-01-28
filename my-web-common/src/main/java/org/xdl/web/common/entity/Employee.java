@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -14,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author xieduoliang
- * @since 2022-01-27
+ * @since 2022-01-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,6 +37,9 @@ public class Employee implements Serializable {
     private Double money;
 
     private BigDecimal money2;
+
+    @Version
+    private Integer version;
 
 
 }

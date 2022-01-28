@@ -148,20 +148,4 @@ public class RedisTest extends BaseTest{
     }
 
     //endregion redis test
-
-    //region mybatis-plus
-
-    @Test
-    public void mybatisTest1() {
-        Employee employee = new Employee();
-        employee.setName("谢铎亮");
-        employee.setSalary(null);
-        employee.setDepartmentId(123L);
-        employee.setMoney(null);
-        employee.setMoney2(null);
-
-        employeeMapper.insert(employee);
-    }
-
-    //endregion mybatis-plus
 }

@@ -4,6 +4,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.xdl.web.common.utils.BeanUtil;
 import org.xdl.web.common.utils.RedisUtil;
@@ -15,4 +17,8 @@ import org.xdl.web.common.utils.RedisUtil;
 @RestController
 public class MyController {
 
+    @RequestMapping(value = "/testForm", method = RequestMethod.POST)
+    public void testForm(@RequestParam("fname") String name) {
+        System.out.println(name);
+    }
 }

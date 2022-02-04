@@ -6,4 +6,18 @@
         select * from employee
     </select>
 
+    <select id="selectByIdForUpdate" resultType="org.xdl.web.common.entity.Employee">
+        select * from employee
+        where id = #{id,jdbcType=BIGINT}
+        for update
+    </select>
+
+    <update id="updateCount">
+        update employee
+        <set>
+            count = #{count}
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
 </mapper>

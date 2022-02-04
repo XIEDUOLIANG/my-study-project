@@ -41,5 +41,7 @@ public class Employee implements Serializable {
     @Version
     private Integer version;
 
+    private Integer count;
+
 
 }
